@@ -15,7 +15,7 @@
     </properties>
 
     <build>
-        <finalName>calculator</finalName>
+        <finalName>sports-time-tracker</finalName>
         <plugins>
             <!-- Compiler Plugin for setting the Java version -->
             <plugin>

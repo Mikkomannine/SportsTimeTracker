@@ -1,73 +1,83 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+class Activity {
+    String name;
+    double hours;
+
+    Activity(String name, double hours) {
+        this.name = name;
+        this.hours = hours;
+    }
+
+    public String toString() {
+        return name + " - " + hours + " hours";
+    }
+}
+
 public class SportsTimeTracker {
-    static class Activity {
-        String name;
-        int timeSpent;
+    private List<Activity> activities;
 
-        Activity(String name, int timeSpent) {
-            this.name = name;
-            this.timeSpent = timeSpent;
-        }
+    public SportsTimeTracker() {
+        activities = new ArrayList<>();
     }
 
-    private static ArrayList<Activity> activities = new ArrayList<>();
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("\n1. Log Activity");
-            System.out.println("2. View Activities");
-            System.out.println("3. Calculate Total Time");
-            System.out.println("4. Exit");
-            System.out.print("Enter option: ");
-            int option = scanner.nextInt();
-            scanner.nextLine();  // consume newline
-
-            switch (option) {
-                case 1:
-                    logActivity(scanner);
-                    break;
-                case 2:
-                    viewActivities();
-                    break;
-                case 3:
-                    calculateTotalTime();
-                    break;
-                case 4:
-                    System.exit(0);
-                default:
-                    System.out.println("Invalid option. Please try again.");
-            }
-        }
+    public void logActivity(String name, double hours) {
+        activities.add(new Activity(name, hours));
     }
 
-    private static void logActivity(Scanner scanner) {
-        System.out.print("Enter activity name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter time spent (in minutes): ");
-        int timeSpent = scanner.nextInt();
-        activities.add(new Activity(name, timeSpent));
-        System.out.println("Activity logged successfully.");
-    }
-
-    private static void viewActivities() {
+    public void viewActivities() {
         if (activities.isEmpty()) {
             System.out.println("No activities logged yet.");
         } else {
-            System.out.println("\nLogged Activities:");
+            System.out.println("Logged Activities:");
             for (Activity activity : activities) {
-                System.out.println("Activity: " + activity.name + ", Time Spent: " + activity.timeSpent + " minutes");
+                System.out.println(activity);
             }
         }
     }
 
-    private static void calculateTotalTime() {
-        int totalTime = 0;
+    public double calculateTotalTime() {
+        double totalTime = 0;
         for (Activity activity : activities) {
-            totalTime += activity.timeSpent;
+            totalTime += activity.hours;
         }
-        System.out.println("Total time spent on sports: " + totalTime + " minutes");
+        return totalTime;
+    }
+
+    public static void main(String[] args) {
+        SportsTimeTracker tracker = new SportsTimeTracker();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1. Log a new activity");
+            System.out.println("2. View logged activities");
+            System.out.println("3. Calculate total time spent on sports");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter activity name: ");
+                    String name = scanner.next();
+                    System.out.print("Enter hours spent: ");
+                    double hours = scanner.nextDouble();
+                    tracker.logActivity(name, hours);
+                    break;
+                case 2:
+                    tracker.viewActivities();
+                    break;
+                case 3:
+                    System.out.println("Total time spent: " + tracker.calculateTotalTime() + " hours");
+                    break;
+                case 4:
+                    System.out.println("Goodbye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
     }
 }
