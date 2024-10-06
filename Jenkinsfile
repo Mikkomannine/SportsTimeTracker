@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker login -u mikktma -p Eg550dockereg550'
-                    sh 'docker push mikktma/sportstimetracker:latest'
+                    sh 'docker push mikktma/sportstimetracker:new'
                 }
             }
         }

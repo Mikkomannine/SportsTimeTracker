@@ -1,5 +1,5 @@
 # Use OpenJDK 11 as the base image
-FROM openjdk:11-jre-slim
+FROM maven:latest
 
 # Copy the compiled application JAR (update the path if needed)
 COPY target/sports-time-tracker.jar /usr/src/sports-time-tracker.jar
